@@ -3,162 +3,75 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>House Sitter Happy Hour</title>
+  <title>Happy Hour Housesitter openings</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #fafafa;
-      color: #333;
-    }
-    header {
-      text-align: center;
-      background: #333;
-      color: #fff;
-      padding: 1.5em 1em;
-    }
-    header img {
-      max-width: 100%;
-      border-radius: 12px;
-      margin-top: 1em;
-    }
-    .container {
-      width: 90%;
-      max-width: 800px;
-      margin: 2em auto;
-    }
-    h2 {
-      color: #444;
-      border-bottom: 2px solid #eee;
-      padding-bottom: 0.3em;
-    }
-    .date-card {
-      background: #fff;
-      border-radius: 12px;
-      padding: 1em;
-      margin: 1em 0;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-    .perks {
-      font-size: 0.9em;
-      color: #666;
-      margin-top: 0.5em;
-    }
-    button {
-      background: #0077cc;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      padding: 0.6em 1.2em;
-      cursor: pointer;
-      margin-top: 0.8em;
-    }
-    button:hover {
-      background: #005fa3;
-    }
-    form {
-      background: #fff;
-      padding: 1.5em;
-      border-radius: 12px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-    input, textarea {
-      width: 100%;
-      padding: 0.6em;
-      margin: 0.5em 0 1em;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-    }
-    .hidden-field {
-      display: none;
-    }
+    body { font-family: sans-serif; background: #f5f5f5; margin: 0; padding: 0; }
+    .container { max-width: 800px; margin: auto; padding: 20px; }
+    .hero-image { width: 100%; border-radius: 8px; margin-bottom: 20px; }
+    .date-card { background: white; padding: 20px; margin: 10px 0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .perks { color: #666; margin-bottom: 10px; }
+    button { padding: 10px 15px; border: none; background: #007BFF; color: white; border-radius: 4px; cursor: pointer; }
+    button:hover { background: #0056b3; }
+    form { background: white; padding: 20px; border-radius: 8px; margin-top: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    input, textarea { width: 100%; padding: 10px; margin: 5px 0 15px; border: 1px solid #ccc; border-radius: 4px; }
   </style>
 </head>
 <body>
-  <header>
-    <h1>House Sitter Happy Hour</h1>
-    <p>Pick a date, enjoy the perks, and sign up to help out!</p>
-    <img src="HH-pano.jpg" alt="Happy Hour Panorama">
-  </header>
-
   <div class="container">
-    <h2>Available Dates</h2>
+    <h1>Happy Hour Housesitter openings</h1>
+    <img src="HH-pano.jpg" alt="Happy Hour Sunset View" class="hero-image">
+    <p>Pick a date, check the perks, and let us know if you're in to housesit!</p>
 
     <div class="date-card">
-      <h3>June 1 – June 7, 2026</h3>
-      <div class="perks">🍹 Margarita Monday, 🌅 Sunset Patio Vibes, 🎲 Board Game Night</div>
-      <button onclick="selectDate('June 1 – June 7, 2026')">I’m Interested</button>
+      <h3>January 19 – February 27, 2026</h3>
+      <div class="perks">Cats AND avocados and citrus fruit - orange, tangerine, grapefruit, and usual papayas and limes.</div>
+      <button type="button" onclick="document.getElementById('interest-date').value='January 19 – February 27, 2026'; document.getElementById('interestForm').scrollIntoView({behavior:'smooth'});">I'm Interested</button>
     </div>
 
     <div class="date-card">
-      <h3>July 15 – July 22, 2026</h3>
-      <div class="perks">🍷 Wine Wednesday, 🎶 Live Music Friday, 🍕 Pizza Night</div>
-      <button onclick="selectDate('July 15 – July 22, 2026')">I’m Interested</button>
+      <h3>April 10 – April 26, 2026</h3>
+      <div class="perks">Cats AND early mangoes. Always papayas and limes.</div>
+      <button type="button" onclick="document.getElementById('interest-date').value='April 10 – April 26, 2026'; document.getElementById('interestForm').scrollIntoView({behavior:'smooth'});">I'm Interested</button>
     </div>
 
-    <!-- Example of commented out option -->
-    <!--
     <div class="date-card">
-      <h3>August 5 – August 12, 2026</h3>
-      <div class="perks">🍻 Happy Hour Specials, 🍔 BBQ Night, 🎬 Outdoor Movie</div>
-      <button onclick="selectDate('August 5 – August 12, 2026')">I’m Interested</button>
+      <h3>Early June – mid July 2026 - dates to be confirmed</h3>
+      <div class="perks">Summer fruits galore — mangoes, dragonfruit and endless papayas and limes. Poolside bliss guaranteed.</div>
+      <button type="button" onclick="document.getElementById('interest-date').value='June 4 – July 8, 2026'; document.getElementById('interestForm').scrollIntoView({behavior:'smooth'});">I'm Interested</button>
     </div>
-    -->
 
-    <h2>Sign Up</h2>
-    <form id="interest-form" action="https://formspree.io/f/yourFormID" method="POST">
-      <label for="name">Your Name:</label>
-      <input type="text" id="name" name="name" required>
-
-      <label for="email">Your Email:</label>
-      <input type="email" id="email" name="email" required>
-
-      <label for="dates">Preferred Dates:</label>
-      <input type="text" id="dates" name="dates" readonly>
-
-      <label for="message">Message (optional):</label>
-      <textarea id="message" name="message"></textarea>
-
-      <!-- Honeypot -->
-      <input type="text" name="_gotcha" class="hidden-field">
-
-      <button type="submit">Send</button>
+    <!-- <div class="date-card">
+      <h3>June 6 – July 8, 2026 - dates to be confirmed</h3>
+      <div class="perks">Summer fruits galore — mangoes, dragonfruit and endless papayas and limes. Poolside bliss guaranteed.</div>
+      <button type="button" onclick="document.getElementById('interest-date').value='June 4 – July 8, 2026'; document.getElementById('interestForm').scrollIntoView({behavior:'smooth'});">I'm Interested</button>
+    </div> -->
+    
+    <form id="interestForm" action="https://formspree.io/f/xldlvegl" method="POST">
+      <h2>Book me in!  Click one of the "I'm Interested" buttons above and share your deets</h2>
+      <input type="text" id="interest-date" name="Date Window" placeholder="Select a date above" required readonly>
+      <input type="text" name="Name" placeholder="Your name" required>
+      <input type="email" name="Email" placeholder="Your email" required>
+      <input type="text" name="Phone" placeholder="Phone (optional)">
+      <textarea name="Message" placeholder="Any notes or questions..."></textarea>
+      <button type="submit">Submit Interest</button>
     </form>
   </div>
 
   <script>
-    function selectDate(dates) {
-      document.getElementById('dates').value = dates;
-      document.getElementById('interest-form').scrollIntoView({behavior: 'smooth'});
-    }
-
-    document.getElementById('interest-form').addEventListener('submit', async function(e) {
+    document.getElementById('interestForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       const form = e.target;
-
-      // Honeypot check
-      if(form._gotcha.value) {
-        alert("Spam detected.");
-        return;
-      }
-
       const data = new FormData(form);
-      try {
-        const response = await fetch(form.action, {
-          method: form.method,
-          body: data,
-          headers: { 'Accept': 'application/json' }
-        });
-
-        if(response.ok) {
-          alert('Thanks! Your interest has been recorded.');
-          form.reset();
-        } else {
-          alert('Oops! There was a problem submitting your form.');
-        }
-      } catch (error) {
-        alert('Network error, please try again later.');
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+      if (response.ok) {
+        alert('Thanks! Your interest has been sent.');
+        form.reset();
+      } else {
+        alert('Oops! There was a problem sending your form.');
       }
     });
   </script>

@@ -1,57 +1,166 @@
-# House Sitter Happy Hour — Website
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>House Sitter Happy Hour</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #fafafa;
+      color: #333;
+    }
+    header {
+      text-align: center;
+      background: #333;
+      color: #fff;
+      padding: 1.5em 1em;
+    }
+    header img {
+      max-width: 100%;
+      border-radius: 12px;
+      margin-top: 1em;
+    }
+    .container {
+      width: 90%;
+      max-width: 800px;
+      margin: 2em auto;
+    }
+    h2 {
+      color: #444;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 0.3em;
+    }
+    .date-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1em;
+      margin: 1em 0;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .perks {
+      font-size: 0.9em;
+      color: #666;
+      margin-top: 0.5em;
+    }
+    button {
+      background: #0077cc;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.6em 1.2em;
+      cursor: pointer;
+      margin-top: 0.8em;
+    }
+    button:hover {
+      background: #005fa3;
+    }
+    form {
+      background: #fff;
+      padding: 1.5em;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    input, textarea {
+      width: 100%;
+      padding: 0.6em;
+      margin: 0.5em 0 1em;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    .hidden-field {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>House Sitter Happy Hour</h1>
+    <p>Pick a date, enjoy the perks, and sign up to help out!</p>
+    <img src="HH-pano.jpg" alt="Happy Hour Panorama">
+  </header>
 
-This is a simple single‑page site for managing house‑sitting signups with friends and family.
+  <div class="container">
+    <h2>Available Dates</h2>
 
-## 🚀 How to publish with GitHub Pages
+    <div class="date-card">
+      <h3>June 1 – June 7, 2026</h3>
+      <div class="perks">🍹 Margarita Monday, 🌅 Sunset Patio Vibes, 🎲 Board Game Night</div>
+      <button onclick="selectDate('June 1 – June 7, 2026')">I’m Interested</button>
+    </div>
 
-1. **Create a GitHub repository**  
-   Log in to GitHub and click **New Repository**. Name it something like `housesitter-site`.
+    <div class="date-card">
+      <h3>July 15 – July 22, 2026</h3>
+      <div class="perks">🍷 Wine Wednesday, 🎶 Live Music Friday, 🍕 Pizza Night</div>
+      <button onclick="selectDate('July 15 – July 22, 2026')">I’m Interested</button>
+    </div>
 
-2. **Upload files**  
-   - Upload `index.html` (this file).  
-   - Upload your image: `HH-pano.jpg`.  
+    <!-- Example of commented out option -->
+    <!--
+    <div class="date-card">
+      <h3>August 5 – August 12, 2026</h3>
+      <div class="perks">🍻 Happy Hour Specials, 🍔 BBQ Night, 🎬 Outdoor Movie</div>
+      <button onclick="selectDate('August 5 – August 12, 2026')">I’m Interested</button>
+    </div>
+    -->
 
-3. **Enable GitHub Pages**  
-   - Go to your repo → **Settings → Pages**.  
-   - Under *Build and Deployment*, choose branch: `main` (or `master`), folder: `/root`.  
-   - Save.
+    <h2>Sign Up</h2>
+    <form id="interest-form" action="https://formspree.io/f/yourFormID" method="POST">
+      <label for="name">Your Name:</label>
+      <input type="text" id="name" name="name" required>
 
-4. **Get your live link**  
-   GitHub will give you a URL, usually like:  
-   `https://your-username.github.io/housesitter-site/`
+      <label for="email">Your Email:</label>
+      <input type="email" id="email" name="email" required>
 
-5. **Share with friends & family!** 🎉
+      <label for="dates">Preferred Dates:</label>
+      <input type="text" id="dates" name="dates" readonly>
 
----
+      <label for="message">Message (optional):</label>
+      <textarea id="message" name="message"></textarea>
 
-## 📂 Example Project Structure
-Your repo should look like this:
-```
-housesitter-site/
-├── index.html        # Main website file
-├── HH-pano.jpg       # Hero image shown at top of page
-└── README.md         # Instructions (this file)
-```
+      <!-- Honeypot -->
+      <input type="text" name="_gotcha" class="hidden-field">
 
----
+      <button type="submit">Send</button>
+    </form>
+  </div>
 
-## 🔄 How to update your site later
-If you need to make changes (e.g., new dates, perks, or design tweaks):
+  <script>
+    function selectDate(dates) {
+      document.getElementById('dates').value = dates;
+      document.getElementById('interest-form').scrollIntoView({behavior: 'smooth'});
+    }
 
-1. Edit your `index.html` file locally on your computer.  
-2. In GitHub, go to your repository and click **Add file → Upload files**.  
-3. Upload the updated `index.html` (it will replace the old one).  
-4. Commit the changes.
+    document.getElementById('interest-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const form = e.target;
 
-Within a minute or so, GitHub Pages will automatically rebuild your site with the new version. Refresh the page at your live URL to see the updates.
+      // Honeypot check
+      if(form._gotcha.value) {
+        alert("Spam detected.");
+        return;
+      }
 
----
+      const data = new FormData(form);
+      try {
+        const response = await fetch(form.action, {
+          method: form.method,
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
 
-## 📝 Notes
-- The form uses [Formspree](https://formspree.io/) to collect responses. You can change the `action` attribute inside `index.html` to your own Formspree endpoint.
-- A basic honeypot field is included to prevent spam.
-- You can later add Google reCAPTCHA for stronger protection once you have a domain.
-
----
-
-💡 Tip: Keep `index.html` in the root of your repository for GitHub Pages to recognize it as your site entry point.
+        if(response.ok) {
+          alert('Thanks! Your interest has been recorded.');
+          form.reset();
+        } else {
+          alert('Oops! There was a problem submitting your form.');
+        }
+      } catch (error) {
+        alert('Network error, please try again later.');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,79 +1,210 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Happy Hour Housesitter openings</title>
   <style>
-    body { font-family: sans-serif; background: #f5f5f5; margin: 0; padding: 0; }
-    .container { max-width: 800px; margin: auto; padding: 20px; }
-    .hero-image { width: 100%; border-radius: 8px; margin-bottom: 20px; }
+    :root {
+      --primary: #007bff;
+      --primary-hover: #0056b3;
+      --bg: #f5f5f5;
+      --text: #222;
+      --muted: #666;
+      --ok: #155724;
+      --ok-bg: #d4edda;
+      --err: #721c24;
+      --err-bg: #f8d7da;
+      --card-bg: #fff;
+    }
+    * { box-sizing: border-box; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); margin: 0; }
+    .container { max-width: 880px; margin: 0 auto; padding: 24px; }
+    .hero-image { width: 100%; border-radius: 12px; margin-bottom: 20px; display: block; }
+    h1 { margin: 0 0 8px; }
+    p.lead { color: var(--muted); margin-top: 0; }
+    .grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
     .date-card { background: var(--card-bg); padding: 16px; border-radius: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.08); display: flex; flex-direction: column; }
-    .perks { color: #666; margin-bottom: 10px; }
-    button { padding: 10px 15px; border: none; background: #007BFF; color: white; border-radius: 4px; cursor: pointer; }
-    button:hover { background: #0056b3; }
-    form { background: white; padding: 20px; border-radius: 8px; margin-top: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-    input, textarea { width: 100%; padding: 10px; margin: 5px 0 15px; border: 1px solid #ccc; border-radius: 4px; }
+    .date-card h3 { margin: 0 0 8px; font-size: 1.1rem; }
+    .perks { color: var(--muted); font-size: .95rem; margin-bottom: 10px; }
+    button, .btn { padding: 10px 14px; border: none; background: var(--primary); color: #fff; border-radius: 8px; cursor: pointer; font-weight: 600; }
+    .date-card button { margin-top: auto; align-self: flex-start; }
+    button:hover, .btn:hover { background: var(--primary-hover); }
+    form { background: var(--card-bg); padding: 20px; border-radius: 12px; margin-top: 24px; box-shadow: 0 2px 5px rgba(0,0,0,0.08); }
+    .field { margin-bottom: 14px; }
+    label { display: block; font-weight: 600; margin-bottom: 6px; }
+    input[type="text"], input[type="email"], input[type="tel"], textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; }
+    input[readonly] { background: #fafafa; }
+    textarea { min-height: 110px; resize: vertical; }
+    .hp-wrap { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+    .status { display: none; margin-bottom: 12px; padding: 12px; border-radius: 8px; }
+    .status.ok { background: var(--ok-bg); color: var(--ok); display: block; }
+    .status.err { background: var(--err-bg); color: var(--err); display: block; }
+    .small { font-size: .9rem; color: var(--muted); }
+    footer { margin-top: 28px; color: var(--muted); font-size: .9rem; }
   </style>
+  <script src="https://www.google.com/recaptcha/api.js?render=6Lcf7ccrAAAAANIiQAWqjV1-KUngL3zeIhNWlUqz" async defer></script>
 </head>
 <body>
   <div class="container">
-    <h1>Happy Hour Housesitter openings</h1>
-    <img src="HH-pano.jpg" alt="Happy Hour Sunset View" class="hero-image">
-    <p>Pick a date, check the perks, and let us know if you're in to housesit!</p>
+    <img src="HH-pano.jpg" alt="Backyard pool and patio at the house" class="hero-image" />
+    <h1>Happy Hour Housesitter</h1>
+    <p class="lead">Pick a date window below and let us know if you can housesit. Lots of fruit. Lots of pool time. Lots of kitty snuggles.</p>
 
-    <div class="date-card">
-      <h3>January 19 – February 27, 2026</h3>
-      <div class="perks">Cats AND avocados and citrus fruit - orange, tangerine, grapefruit, and usual papayas and limes.</div>
-      <button type="button" onclick="document.getElementById('interest-date').value='January 19 – February 27, 2026'; document.getElementById('interestForm').scrollIntoView({behavior:'smooth'});">I'm Interested</button>
+    <div class="grid" id="dates">
+      <div class="date-card">
+        <h3>January 19 – February 27, 2026</h3>
+        <div class="perks">Cats AND avocados and citrus fruit — orange, tangerine, grapefruit — plus the usual papayas and limes.</div>
+        <button type="button" data-date="January 19 – February 27, 2026">I'm Interested</button>
+      </div>
+
+     <div class="date-card">
+        <h3>March 20 – April 9, 2026 (dates TBC) </h3>
+        <div class="perks">Cats and more cats. Always papayas and limes.</div>
+        <button type="button" data-date="March 20 – April 9, 2026 (dates TBC)">I'm Interested</button>
+      </div>
+
+      
+      <div class="date-card">
+        <h3>April 10 – April 26, 2026</h3>
+        <div class="perks">Cats AND early mangoes. Always papayas and limes.</div>
+        <button type="button" data-date="April 10 – April 26, 2026">I'm Interested</button>
+      </div>
+
+      <div class="date-card">
+        <h3>June 6 – July 8, 2026</h3>
+        <div class="perks">Summer fruits galore — mangoes, dragonfruit, maybe pineapples — and endless papayas and limes. Poolside bliss guaranteed.</div>
+        <button type="button" data-date="June 6 – July 8, 2026">I'm Interested</button>
+      </div>
+
+      <div class="date-card">
+        <h3>Early August - late August, 2026 (dates TBC)</h3>
+        <div class="perks">Late summer fruits galore — mangoes, pineapples and papayas.</div>
+        <button type="button" data-date="Early August - late August, 2026 (dates TBC)">I'm Interested</button>
+      </div>
+
+      <div class="date-card">
+        <h3>late September - mid October, 2026 (dates TBC)</h3>
+        <div class="perks">Start of citrus season — oranges, tangerine, grapefruit and lemons.</div>
+        <button type="button" data-date="late September - mid October, 2026 (dates TBC)">I'm Interested</button>
+      </div>
     </div>
 
-    <div class="date-card">
-      <h3>April 10 – April 26, 2026</h3>
-      <div class="perks">Cats AND early mangoes. Always papayas and limes.</div>
-      <button type="button" onclick="document.getElementById('interest-date').value='April 10 – April 26, 2026'; document.getElementById('interestForm').scrollIntoView({behavior:'smooth'});">I'm Interested</button>
-    </div>
+    <form id="interestForm" action="https://formspree.io/f/xldlvegl" method="POST" novalidate>
+      <div id="formStatus" class="status" aria-live="polite"></div>
 
-    <div class="date-card">
-      <h3>Early June – mid July 2026 - dates to be confirmed</h3>
-      <div class="perks">Summer fruits galore — mangoes, dragonfruit and endless papayas and limes. Poolside bliss guaranteed.</div>
-      <button type="button" onclick="document.getElementById('interest-date').value='June 4 – July 8, 2026'; document.getElementById('interestForm').scrollIntoView({behavior:'smooth'});">I'm Interested</button>
-    </div>
+      <!-- Honeypot for spam bots -->
+      <div class="hp-wrap" aria-hidden="true">
+        <label for="website">Leave this field empty</label>
+        <input id="website" type="text" name="website" tabindex="-1" autocomplete="off" />
+      </div>
 
-    <!-- <div class="date-card">
-      <h3>June 6 – July 8, 2026 - dates to be confirmed</h3>
-      <div class="perks">Summer fruits galore — mangoes, dragonfruit and endless papayas and limes. Poolside bliss guaranteed.</div>
-      <button type="button" onclick="document.getElementById('interest-date').value='June 4 – July 8, 2026'; document.getElementById('interestForm').scrollIntoView({behavior:'smooth'});">I'm Interested</button>
-    </div> -->
-    
-    <form id="interestForm" action="https://formspree.io/f/xldlvegl" method="POST">
-      <h2>Book me in!  Click one of the "I'm Interested" buttons above and share your deets</h2>
-      <input type="text" id="interest-date" name="Date Window" placeholder="Select a date above" required readonly>
-      <input type="text" name="Name" placeholder="Your name" required>
-      <input type="email" name="Email" placeholder="Your email" required>
-      <input type="text" name="Phone" placeholder="Phone (optional)">
-      <textarea name="Message" placeholder="Any notes or questions..."></textarea>
-      <button type="submit">Submit Interest</button>
+      <div class="field">
+        <label for="interest-date">Selected Date Window</label>
+        <input id="interest-date" name="Date Window" type="text" readonly required placeholder="Choose a date window above" />
+      </div>
+
+      <div class="field">
+        <label for="name">Your Name</label>
+        <input id="name" name="Name" type="text" required autocomplete="name" />
+      </div>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" name="Email" type="email" required autocomplete="email" />
+      </div>
+
+      <div class="field">
+        <label for="phone">Phone (optional)</label>
+        <input id="phone" name="Phone" type="tel" autocomplete="tel" />
+      </div>
+
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea id="message" name="Message" placeholder="Anything we should know?"></textarea>
+      </div>
+
+      <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
+      <button type="submit" class="btn">Send</button>
+      <div class="small">Note: By submitting, you’re just expressing interest — we’ll confirm details by email or text.</div>
     </form>
+
+    
   </div>
 
   <script>
-    document.getElementById('interestForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const form = e.target;
-      const data = new FormData(form);
-      const response = await fetch(form.action, {
-        method: 'POST',
-        body: data,
-        headers: { 'Accept': 'application/json' }
+    // Central listener for date buttons (no inline handlers)
+    document.querySelectorAll('[data-date]').forEach(function(btn) {
+      btn.addEventListener('click', function () {
+        var date = btn.getAttribute('data-date');
+        var dateInput = document.getElementById('interest-date');
+        if (dateInput) {
+          dateInput.value = date || '';
+          document.getElementById('interestForm').scrollIntoView({ behavior: 'smooth' });
+          try { dateInput.focus({ preventScroll: true }); } catch(e) {}
+        }
       });
-      if (response.ok) {
-        alert('Thanks! Your interest has been sent.');
+    });
+
+    const form = document.getElementById('interestForm');
+    const statusEl = document.getElementById('formStatus');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Honeypot check — if filled, abort quietly
+      const hp = document.getElementById('website');
+      if (hp && hp.value.trim() !== '') {
+        showStatus('Thanks! Your interest has been sent.', true);
         form.reset();
-      } else {
-        alert('Oops! There was a problem sending your form.');
+        return;
+      }
+
+      // Basic front-end validation
+      if (!form.reportValidity || !form.reportValidity()) {
+        showStatus('Please complete required fields.', false);
+        return;
+      }
+
+      // Execute reCAPTCHA v3 to get a token, then continue
+      if (typeof grecaptcha === 'undefined') {
+        showStatus('Verification could not load. Please reload the page and try again.', false);
+        return;
+      }
+      const token = await new Promise((resolve, reject) => {
+        try {
+          grecaptcha.ready(() => {
+            grecaptcha.execute('6Lcf7ccrAAAAANIiQAWqjV1-KUngL3zeIhNWlUqz', { action: 'housesit_interest' })
+              .then(resolve).catch(reject);
+          });
+        } catch (e) { reject(e); }
+      });
+      document.getElementById('g-recaptcha-response').value = token;
+      const data = new FormData(form);
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          showStatus('Thanks! Your interest has been sent. We’ll be in touch soon.', true);
+          form.reset();
+        } else {
+          showStatus('Oops! There was a problem sending your form. Please try again.', false);
+        }
+      } catch (err) {
+        showStatus('Network error. Please try again in a moment.', false);
       }
     });
+
+    function showStatus(message, ok) {
+      statusEl.textContent = message;
+      statusEl.className = 'status ' + (ok ? 'ok' : 'err');
+      statusEl.style.display = 'block';
+    }
   </script>
 </body>
 </html>

@@ -8,14 +8,13 @@
     body { font-family: sans-serif; background: #f5f5f5; margin: 0; padding: 0; }
     .container { max-width: 800px; margin: auto; padding: 20px; }
     .hero-image { width: 100%; border-radius: 8px; margin-bottom: 20px; }
-    .date-card { background: white; padding: 20px; margin: 10px 0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .date-card { background: var(--card-bg); padding: 16px; border-radius: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.08); display: flex; flex-direction: column; }
     .perks { color: #666; margin-bottom: 10px; }
     button { padding: 10px 15px; border: none; background: #007BFF; color: white; border-radius: 4px; cursor: pointer; }
     button:hover { background: #0056b3; }
     form { background: white; padding: 20px; border-radius: 8px; margin-top: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
     input, textarea { width: 100%; padding: 10px; margin: 5px 0 15px; border: 1px solid #ccc; border-radius: 4px; }
   </style>
-  <script src="https://www.google.com/recaptcha/api.js?render=YOUR_RECAPTCHA_SITE_KEY" async defer></script>
 </head>
 <body>
   <div class="container">
@@ -62,20 +61,6 @@
     document.getElementById('interestForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       const form = e.target;
-      // Execute reCAPTCHA v3 to get a token, then continue
-      if (typeof grecaptcha === 'undefined') {
-        showStatus('Verification could not load. Please reload the page and try again.', false);
-        return;
-      }
-      const token = await new Promise((resolve, reject) => {
-        try {
-          grecaptcha.ready(() => {
-            grecaptcha.execute('6Lcf7ccrAAAAANIiQAWqjV1-KUngL3zeIhNWlUqz', { action: 'housesit_interest' })
-              .then(resolve).catch(reject);
-          });
-        } catch (e) { reject(e); }
-      });
-      document.getElementById('g-recaptcha-response').value = token;
       const data = new FormData(form);
       const response = await fetch(form.action, {
         method: 'POST',

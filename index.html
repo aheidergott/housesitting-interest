@@ -23,167 +23,149 @@
     .hero-image { width: 100%; border-radius: 12px; margin-bottom: 20px; display: block; }
     h1 { margin: 0 0 8px; }
     p.lead { color: var(--muted); margin-top: 0; }
-    .grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
-    .date-card { background: var(--card-bg); padding: 16px; border-radius: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.08); display: flex; flex-direction: column; }
+
+    /* FIXED: 3 columns */
+    .grid {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .date-card {
+      background: var(--card-bg);
+      padding: 16px;
+      border-radius: 12px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+      display: flex;
+      flex-direction: column;
+    }
+
     .date-card h3 { margin: 0 0 8px; font-size: 1.1rem; }
     .perks { color: var(--muted); font-size: .95rem; margin-bottom: 10px; }
-    button, .btn { padding: 10px 14px; border: none; background: var(--primary); color: #fff; border-radius: 8px; cursor: pointer; font-weight: 600; }
-    .date-card button { margin-top: auto; align-self: flex-start; }
+
+    button, .btn {
+      padding: 10px 14px;
+      border: none;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .date-card button {
+      margin-top: auto;
+      align-self: flex-start;
+    }
+
     button:hover, .btn:hover { background: var(--primary-hover); }
-    form { background: var(--card-bg); padding: 20px; border-radius: 12px; margin-top: 24px; box-shadow: 0 2px 5px rgba(0,0,0,0.08); }
+
+    form {
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 24px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+    }
+
     .field { margin-bottom: 14px; }
     label { display: block; font-weight: 600; margin-bottom: 6px; }
-    input[type="text"], input[type="email"], input[type="tel"], textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; }
+
+    input[type="text"], input[type="email"], input[type="tel"], textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
     input[readonly] { background: #fafafa; }
     textarea { min-height: 110px; resize: vertical; }
-    .hp-wrap { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+
+    .hp-wrap { position: absolute; left: -10000px; }
+
     .status { display: none; margin-bottom: 12px; padding: 12px; border-radius: 8px; }
     .status.ok { background: var(--ok-bg); color: var(--ok); display: block; }
     .status.err { background: var(--err-bg); color: var(--err); display: block; }
+
     .small { font-size: .9rem; color: var(--muted); }
-    footer { margin-top: 28px; color: var(--muted); font-size: .9rem; }
   </style>
+
   <script src="https://www.google.com/recaptcha/api.js?render=6Lcf7ccrAAAAANIiQAWqjV1-KUngL3zeIhNWlUqz" async defer></script>
 </head>
+
 <body>
   <div class="container">
-    <img src="HH-pano.jpg" alt="Backyard pool and patio at the house" class="hero-image" />
+    <img src="HH-pano.jpg" class="hero-image" />
     <h1>Happy Hour Housesitter Openings</h1>
     <p class="lead">Pick a date window below and let us know if you can housesit. Lots of fruit. Lots of pool time. Lots of kitty snuggles.</p>
 
     <div class="grid" id="dates">
-      <!-- CARD START: July 26 - August 26, 2026 -->
+
       <div class="date-card">
-        <h3>July 26 - August 26, 2026</h3>
+        <h3>July 29 - August 26, 2026</h3>
         <div class="perks">Late summer fruit bounty — mangoes, pineapples and papayas.</div>
-      <!-- CARD END: July 26 - August 26, 2026 -->
-        <button type="button" data-date="July 26 - August 26, 2026">I'm Interested</button>
+        <button type="button" data-date="July 29 - August 26, 2026">I'm Interested</button>
       </div>
-      <!-- CARD START: September 21 - October 30, 2026 -->
+
       <div class="date-card">
         <h3>September 21 - October 30, 2026</h3>
         <div class="perks">Start of citrus season — oranges, tangerine, grapefruit and lemons.</div>
-      <!-- CARD END: September 21 - October 30, 2026 -->
         <button type="button" data-date="September 21 - October 30, 2026">I'm Interested</button>
       </div>
-      
+
+      <div class="date-card">
+        <h3>January 13 -  March 3, 2027</h3>
+        <div class="perks">Avocados and citrus galore</div>
+        <button type="button" data-date="January 13 - March 3, 2027">I'm Interested</button>
+      </div>
+
     </div>
 
     <form id="interestForm" action="https://formspree.io/f/xldlvegl" method="POST" novalidate>
-      <div id="formStatus" class="status" aria-live="polite"></div>
+      <div id="formStatus" class="status"></div>
 
-      <!-- Honeypot for spam bots -->
-      <div class="hp-wrap" aria-hidden="true">
-        <label for="website">Leave this field empty</label>
-        <input id="website" type="text" name="website" tabindex="-1" autocomplete="off" />
+      <div class="hp-wrap">
+        <input type="text" name="website" />
       </div>
 
       <div class="field">
-        <label for="interest-date">Selected Date Window</label>
-        <input id="interest-date" name="Date Window" type="text" readonly required placeholder="Choose a date window above" />
+        <label>Selected Date Window</label>
+        <input id="interest-date" name="Date Window" type="text" readonly required />
       </div>
 
       <div class="field">
-        <label for="name">Your Name</label>
-        <input id="name" name="Name" type="text" required autocomplete="name" />
+        <label>Your Name</label>
+        <input name="Name" required />
       </div>
 
       <div class="field">
-        <label for="email">Email</label>
-        <input id="email" name="Email" type="email" required autocomplete="email" />
+        <label>Email</label>
+        <input name="Email" type="email" required />
       </div>
 
       <div class="field">
-        <label for="phone">Phone (optional)</label>
-        <input id="phone" name="Phone" type="tel" autocomplete="tel" />
+        <label>Phone</label>
+        <input name="Phone" />
       </div>
 
       <div class="field">
-        <label for="message">Message</label>
-        <textarea id="message" name="Message" placeholder="Anything we should know?"></textarea>
+        <label>Message</label>
+        <textarea name="Message"></textarea>
       </div>
 
       <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
-      <button type="submit" class="btn">Send</button>
-      <div class="small">Note: By submitting, you’re just expressing interest — we’ll confirm details by email or text.</div>
+      <button type="submit">Send</button>
     </form>
-
-    
   </div>
 
   <script>
-    // Central listener for date buttons (no inline handlers)
-    document.querySelectorAll('[data-date]').forEach(function(btn) {
-      btn.addEventListener('click', function () {
-        var date = btn.getAttribute('data-date');
-        var dateInput = document.getElementById('interest-date');
-        if (dateInput) {
-          dateInput.value = date || '';
-          document.getElementById('interestForm').scrollIntoView({ behavior: 'smooth' });
-          try { dateInput.focus({ preventScroll: true }); } catch(e) {}
-        }
+    document.querySelectorAll('[data-date]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.getElementById('interest-date').value = btn.dataset.date;
+        document.getElementById('interestForm').scrollIntoView({ behavior: 'smooth' });
       });
     });
-
-    const form = document.getElementById('interestForm');
-    const statusEl = document.getElementById('formStatus');
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      // Honeypot check — if filled, abort quietly
-      const hp = document.getElementById('website');
-      if (hp && hp.value.trim() !== '') {
-        showStatus('Thanks! Your interest has been sent.', true);
-        form.reset();
-        return;
-      }
-
-      // Basic front-end validation
-      if (!form.reportValidity || !form.reportValidity()) {
-        showStatus('Please complete required fields.', false);
-        return;
-      }
-
-      // Execute reCAPTCHA v3 to get a token, then continue
-      if (typeof grecaptcha === 'undefined') {
-        showStatus('Verification could not load. Please reload the page and try again.', false);
-        return;
-      }
-      const token = await new Promise((resolve, reject) => {
-        try {
-          grecaptcha.ready(() => {
-            grecaptcha.execute('6Lcf7ccrAAAAANIiQAWqjV1-KUngL3zeIhNWlUqz', { action: 'housesit_interest' })
-              .then(resolve).catch(reject);
-          });
-        } catch (e) { reject(e); }
-      });
-      document.getElementById('g-recaptcha-response').value = token;
-      const data = new FormData(form);
-
-      try {
-        const response = await fetch(form.action, {
-          method: 'POST',
-          body: data,
-          headers: { 'Accept': 'application/json' }
-        });
-
-        if (response.ok) {
-          showStatus('Thanks! Your interest has been sent. We’ll be in touch soon.', true);
-          form.reset();
-        } else {
-          showStatus('Oops! There was a problem sending your form. Please try again.', false);
-        }
-      } catch (err) {
-        showStatus('Network error. Please try again in a moment.', false);
-      }
-    });
-
-    function showStatus(message, ok) {
-      statusEl.textContent = message;
-      statusEl.className = 'status ' + (ok ? 'ok' : 'err');
-      statusEl.style.display = 'block';
-    }
   </script>
 </body>
 </html>
